@@ -5,15 +5,15 @@
 
 import requests  # for download data from web
 from  bs4 import BeautifulSoup  # filter the data
-import operator  # dictionary
+import operator  
 
 
 def start(url):
     word_list = []  # blank file
     source_code = requests.get(url).text  # just clean text, without binary data, or something like that
     soup = BeautifulSoup(source_code, "html.parser")  # filter clean all html crap
-    for post_text in soup.findAll('a', {'class': 'reference internal'}): # findAll (element, {property : name of property})
-        content = post_text.string  # remove all html and get only text
+    for post_text in soup.findAll('a', {'class': 'reference internal'}): # in my case
+        content = post_text.string  
         words = content.lower().split()  # convert toLower case, then split the content into separated words
         for each_word in words:
             word_list.append(each_word)
@@ -35,12 +35,11 @@ def clean_list(word_list):
 def create_dictionary(clean_word_list):
     word_count = {}
     for word in clean_word_list:
-        if word in word_count:  # if is true
+        if word in word_count:
             word_count[word] += 1
         else:
             word_count[word] = 1
-    for key, value in sorted(word_count.items(), key=operator.itemgetter(1)): # 'key' is an property, not the var we created -
-        # in the loop, and operator is the one we imported
+    for key, value in sorted(word_count.items(), key=operator.itemgetter(1)): 
         print(key, value)
 
 start('https://docs.djangoproject.com/en/1.9/')

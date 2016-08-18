@@ -9,7 +9,7 @@ import operator
 
 
 def start(url):
-    word_list = []  # blank file
+    word_list = []  
     source_code = requests.get(url).text  # just clean text, without binary data, or something like that
     soup = BeautifulSoup(source_code, "html.parser")  # filter clean all html crap
     for post_text in soup.findAll('a', {'class': 'reference internal'}): # in my case
